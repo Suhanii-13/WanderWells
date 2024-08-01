@@ -1,0 +1,73 @@
+<% layout('/layouts/boilerplate') -%>
+
+<br><br>
+<div class="row mt-2">
+    <div class="col-8 offset-2">
+        <h3>Edit this Listing</h3>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" id="listingForm" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="listing[title]" value="<%= listing.title %>" type="text" placeholder="Enter title" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter a title 
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="listing[description]" placeholder="Enter description" class="form-control" required><%= listing.description %></textarea>
+                <div class="invalid-feedback">
+                    Please enter a description 
+                </div>
+            </div>
+
+            <div class="mb-3"> 
+                <p>Original listing img</p>         
+                <img src="<%= originalImgUrl %>">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload New image</label>
+                <input name="listing[image]" type="file" class="form-control">
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" type="number" value="<%= listing.price %>" placeholder="Enter price" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a valid price
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="listing[country]" type="text" value="<%= listing.country %>" placeholder="Enter country" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a country
+                    </div>
+                </div>
+            </div>  
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input name="listing[location]" type="text" value="<%= listing.location %>" placeholder="Enter location" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter a location
+                </div>
+            </div>
+
+            <input type="hidden" name="listing[latitude]" value="<%= listing.geometry.coordinates[1] %>">
+            <input type="hidden" name="listing[longitude]" value="<%= listing.geometry.coordinates[0] %>">
+
+            <button class="btn btn-dark add-btn mt-3">Edit</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+
+<div class="col-8 offset-2 mb-3">
+    <h3>Current Location</h3>
+    <div id="map" style="height: 400px;"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="/js/mapEdit.js"></script>
+</div>

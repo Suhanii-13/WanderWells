@@ -1,0 +1,73 @@
+<% layout('/layouts/boilerplate') -%>
+
+    <br><br>
+    <div class="row mt-2">
+        <div class="col-8 offset-2">
+<h3>Create a New Listings</h3>
+    <form method="POST" action="/listings" 
+    class="needs-validation" id="listingForm" novalidate enctype="multipart/form-data">            
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label> 
+            <input name="listing[title]" placeholder="Enter title" type="text" class="form-control" required>
+
+            <div class="valid-feedback">
+             Title looks good
+            </div>
+            <div class="invalid-feedback">
+             Please write title 
+            </div>
+        </div> 
+
+        <div class="mb-3">
+            <label for="description" class="form-label"> Description</label> 
+            <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
+            <div class="invalid-feedback">
+                Please write description 
+               </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Uploade listing image</label> 
+            <input name="listing[image]",
+            type = "file",
+           class="form-control" required>
+        </div>
+    
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label> 
+            <input name="listing[price]" placeholder="Enter price" type="number" class="form-control" required>
+            <div class="invalid-feedback">
+                Please write  valid price 
+               </div>
+        </div>
+
+        <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label> 
+            <input name="listing[country]" placeholder="Enter country" type="text" class="form-control" required>
+            <div class="invalid-feedback">
+                Please write  the country 
+               </div>
+        </div>
+    </div>  
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label> 
+            <input   id="locationInput" name="listing[location]" placeholder="Enter location" type="text" class="form-control"required>
+            <div class="invalid-feedback">
+                Please write the location 
+               </div>
+        </div>
+    
+        <button type="submit" class="btn btn-dark add-btn mt-3">Add</button>
+        <br><br>
+       
+    <input type="hidden" id="latitude" name="listing[latitude]">
+    <input type="hidden" id="longitude" name="listing[longitude]">
+
+    </form>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="/js/mapNew.js"></script>
+</div>
+</div>
+

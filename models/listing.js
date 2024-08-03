@@ -26,6 +26,7 @@ const listingSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref: "User",
   },
+  category:String,
   // geometry: {
   //   type: {
   //     type: String,

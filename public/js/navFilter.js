@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navbar && filterbar) {
         navbar.onclick = function() {
             if (isMoved) {
-                filterbar.style.marginTop = '2rem'; 
+                filterbar.style.marginTop = '1.2rem'; 
             } else {
-                filterbar.style.marginTop = '15rem'; 
+                filterbar.style.marginTop = '13.4rem'; 
             }
             isMoved = !isMoved; 
         };

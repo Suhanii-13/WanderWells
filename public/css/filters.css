@@ -1,23 +1,28 @@
-.filterBar
-{
-    margin-top:20px; 
-    height:80px;
+.filterBar {
+    position: fixed;
+    top:2.7rem;
+    margin-top: 20px; 
+    height: 77px;
     width: 100%;
     display: flex;   
     padding: 10px 0; 
     border-bottom: 1px solid #b9bbbd;
+    z-index: 99999;
+    background-color:white;
+    transition: margin-top 0.3s ease
 }
 
 .filters {
     width: 70%; 
+    margin-left: 1rem;
 }
 
-.toggel {
+.toggle { /* Fixed class name */
     width: 30%; 
     display: flex; 
     align-items: center;
-    justify-content: center; 
-    margin-top: 1rem;
+    justify-content: center;
+    margin-bottom:1.2rem;
 }
 
 .filterCard {
@@ -47,7 +52,7 @@
 }
 
 .filterCard p {
-   font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
 .filterCard .icon i {
@@ -79,7 +84,7 @@
     border: 1px solid rgb(135, 130, 130);
     border-radius: 50px;
     background-color: white;
-    color:black;
+    color: black;
     justify-content: center;
     text-align: center;
     cursor: pointer;
@@ -87,7 +92,7 @@
     position: absolute;
     font-size: 1.3rem;
     transform: translateY(-50%);
-    top:50%;
+    top: 50%;
     margin-top: -0.4rem;
 }
 
@@ -107,17 +112,17 @@
 }
 
 .carousel.dragging {
-    scroll-snap-type:none;
+    scroll-snap-type: none;
     scroll-behavior: auto;
 }
 
-@media screen and (max-width:724px) {
+@media screen and (max-width: 724px) {
     .filters {
         width: 100%; 
     }
 
-    .toggel {
-        display:none; 
+    .toggle { /* Fixed class name */
+        display: none; 
     }
 }
 
@@ -135,8 +140,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 1.5rem;
-    margin-left:1rem;
-    
+    margin-left: 1rem;
 }
 
 .switch {

@@ -1,9 +1,6 @@
-// public/js/filters.js
-
 document.addEventListener('DOMContentLoaded', () => {
   const wrapper = document.querySelector(".wrapper");
   const carousel = document.querySelector(".carousel");
-  const arrowBtns = document.querySelectorAll(".wrapper .pointer");
   let fistCardWidth = carousel.querySelector(".filterCard").offsetWidth;
   const carousalChilderns = [...carousel.children];
   let isDragging = false, startX, startScrollLeft, timeoutId;
@@ -56,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Autoplay functionality
   const autoplay = () => {
-    if (window.innerWidth < 100) return; // Adjust this condition as needed
+    if (window.innerWidth < 100) return; 
     timeoutId = setTimeout(() => carousel.scrollLeft += fistCardWidth, 2500);
   };
 
@@ -70,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
   wrapper.addEventListener("mouseleave", autoplay);
   carousel.addEventListener("scroll", scrollInfinite);
 });
-
 
 let taxSwitch = document.getElementById("flexSwitchCheckDefault");
     taxSwitch.addEventListener("click" , ()=>{

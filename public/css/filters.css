@@ -22,7 +22,8 @@
     display: flex; 
     align-items: center;
     justify-content: center;
-    margin-bottom:1.2rem;
+    margin-bottom:1rem;
+    margin-right: 18rem;
 }
 
 .filterCard {
@@ -116,13 +117,32 @@
     scroll-behavior: auto;
 }
 
-@media screen and (max-width: 724px) {
+@media screen and (max-width:1065px) {
     .filters {
         width: 100%; 
     }
 
-    .toggle { /* Fixed class name */
+    .toggle { 
         display: none; 
+    }
+}
+
+@media screen and (max-width:1669px) {
+    .toggle{
+    margin-right: 10rem;
+    }
+}
+
+@media screen and (max-width:1369px) {
+    .toggle{
+    margin-right: 5rem;
+    }
+}
+
+@media screen and (max-width:1197px) {
+    .toggle{
+     font-size: small;
+     margin-right: 7rem;
     }
 }
 

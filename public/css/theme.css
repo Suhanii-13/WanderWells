@@ -1,0 +1,26 @@
+.dark-mode {
+    background: linear-gradient(180deg, #121212, #1f1f1f);
+    color: #e0e0e0;
+}
+
+.dark-mode .navbar {
+    background: linear-gradient(180deg, #333, #444);
+}
+
+.dark-mode .filterBar
+{
+    background: linear-gradient(180deg, #333, #444);
+    color: white;
+}
+
+.dark-mode .filterCard
+{
+    color: white;
+}
+.dark-mode .card {
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    color: #ebebeb;
+}
+
+

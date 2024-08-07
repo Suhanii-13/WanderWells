@@ -79,33 +79,8 @@
     position: relative;
 }
 
-.wrapper .pointer {
-    height: 27px;
-    width: 27px;
-    border: 1px solid rgb(135, 130, 130);
-    border-radius: 50px;
-    background-color: white;
-    color: black;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-    line-height: 29px;
-    position: absolute;
-    font-size: 1.3rem;
-    transform: translateY(-50%);
-    top: 50%;
-    margin-top: -0.4rem;
-}
 
-.wrapper .pointer:first-child {
-    left: 18px;
-    box-shadow: -16px -7px 0px 20px white;
-}
 
-.wrapper .pointer:last-child {
-    right: 10px;
-    box-shadow: 7px -1px 0px 19px white;
-}
 
 .carousel.dragging .filterCard {
     cursor: grab;

@@ -1,12 +1,11 @@
 .filterBar {
     position: fixed;
     top:2.7rem;
-    margin-top: 20px; 
+    margin-top: 1.4rem; 
     height: 77px;
     width: 100%;
     display: flex;   
     padding: 10px 0; 
-    border-bottom: 1px solid #b9bbbd;
     z-index: 99999;
     background-color:white;
     transition: margin-top 0.3s ease

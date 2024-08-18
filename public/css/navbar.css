@@ -46,7 +46,6 @@
    transition:0.4s ;
  }
 
-
  #theme-toggle
  {
   width: 0;
@@ -64,3 +63,27 @@
    transform:translateX(185%);
    background: linear-gradient(180deg,#777,#3a3a3a);
  }
+ 
+
+ @media screen and (max-width:1118px) {
+  #google_translate_element
+  {
+    display:none;
+  }
+  .themeToggle
+  {
+    margin-left: 0.4rem;
+  }
+ }
+
+ @media (min-width: 992px) {
+  #google_translate_element {
+    margin-right: 20px;
+  }
+  .themeToggle
+  {
+    margin-left: 2rem;
+  }
+}
+
+ 

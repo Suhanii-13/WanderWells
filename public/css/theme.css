@@ -61,3 +61,8 @@
     border-color: #777;
     box-shadow: none;
 }
+
+.dark-mode .fixed-icon
+{
+    box-shadow: 0 1px 4px rgba(181, 180, 180, 0.3);
+}

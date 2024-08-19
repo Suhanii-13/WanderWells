@@ -4,7 +4,7 @@
     height: 77px;
     width: 100%;
     padding: 10px 0; 
-    z-index: 99999;
+    z-index: 1;
     background-color:white;
     transition: margin-top 0.3s ease
 }
@@ -14,14 +14,6 @@
     margin-left: 1rem;
 }
 
-.toggle { /* Fixed class name */
-    width: 30%; 
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    margin-bottom:1rem;
-    margin-right: 18rem;
-}
 
 .filterCard {
     color: #807f7f;
@@ -89,6 +81,18 @@
     scroll-behavior: auto;
 }
 
+
+.toggle { 
+    width: 17%; 
+    border: 1px solid rgb(138, 137, 137);
+    height: 3rem;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin-right: 31rem;
+    border-radius: 4rem;
+}
+
 @media screen and (max-width:1065px) {
     .filters {
         width: 100%; 
@@ -99,25 +103,37 @@
     }
 }
 
-@media screen and (max-width:1669px) {
+@media screen  and (max-width:1432px){
     .toggle{
-    margin-right: 10rem;
+        margin-left: 2rem;
     }
 }
 
-@media screen and (max-width:1369px) {
+@media screen and (max-width:1699px) {
     .toggle{
-    margin-right: 5rem;
+    margin-right: 3rem;
+    width: 15%;
     }
 }
 
 @media screen and (max-width:1197px) {
     .toggle{
-     font-size: small;
-     margin-right: 7rem;
+    font-size: small;
+     margin-right: 5rem;
     }
 }
 
+@media screen and (max-width:1699px) {
+    .toggle{
+    margin-right: 3rem;
+    width: 15%;
+    }
+}
+ @media screen and (min-width:2000px) {
+    .toggle{
+        margin-right: 30rem;
+    }
+ }
 .tax-info {
     display: none;
 }

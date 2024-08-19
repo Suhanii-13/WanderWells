@@ -104,7 +104,7 @@ app.use("/",userRouter);
 //book
 
 app.get("/listings/:id/book" ,isLoggedIn,(req,res)=>{
-    res.render("booking/form.ejs");
+    res.render("booking/bookingForm.ejs");
 })
 
 

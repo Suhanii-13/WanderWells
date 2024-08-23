@@ -140,6 +140,13 @@ justify-content: center;
     border: none !important;
 }
 
+.book-btn
+{
+    background-color:#fe424d !important ;
+    border: none !important;
+    width: 6rem !important;
+}
+
 /* show-page */
 
 .show-img
@@ -157,3 +164,31 @@ justify-content: center;
     height: 400px;
 }
 
+/*msg box*/
+.fixed-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color:#fe424d;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 1000;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    width: 3.8rem !important;
+}
+
+.fixed-icon:hover {
+    background-color: darkred;
+}
+
+@media screen and (min-width:2000px) {
+    .fixed-icon{
+        right: 80px;
+    }
+}

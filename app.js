@@ -1,8 +1,6 @@
 if(process.env.NODE_ENV != "production");{
   require('dotenv').config();
 }
-
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -17,7 +15,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const ExpressError = require("./utils/ExpressError.js");
-
+const  {isLoggedIn} = require("./middleware.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -101,6 +99,14 @@ app.use("/listings/:id/reviews" ,reviewRouter);
 
 //for users
 app.use("/",userRouter);
+
+
+//book
+
+app.get("/listings/:id/book" ,isLoggedIn,(req,res)=>{
+    res.render("booking/bookingForm.ejs");
+})
+
 
 
 //error handler middleware

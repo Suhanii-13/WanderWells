@@ -1,0 +1,38 @@
+<% layout('/layouts/boilerplate') -%>
+<br><br><br><br>
+<div class="row"> 
+    <div class="col-8 offset-2">
+        <h2>Complete Your Payment</h2>
+        <p>Total Amount: ₹<%= amount %></p>
+        <form>
+            <button type="button" class="btn btn-primary" id="rzp-button1">Proceed to Payment</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "<%= razorpayKeyId %>",
+        "amount": "<%= amount %>00", // Amount in paise
+        "currency": "INR",
+        "name": "wanderWell",
+        "description": "Test Transaction",
+        "order_id": "<%= orderId %>", // Razorpay Order ID
+        "callback_url": "/booking/razorpay/success",
+        "prefill": {
+            "name": "<%= bookingData.name %>",
+            "email": "<%= bookingData.email %>",
+            "contact": "<%= bookingData.contact %>"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function(e) {
+        rzp1.open();
+        e.preventDefault();
+    };
+</script>

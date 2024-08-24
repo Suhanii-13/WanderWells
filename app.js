@@ -16,8 +16,16 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const ExpressError = require("./utils/ExpressError.js");
 const  {isLoggedIn} = require("./middleware.js");
-const Booking = require("./models/book.js");
 
+//for booking 
+const Booking = require("./models/book.js");
+const Listing = require("./models/listing.js");
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
+
+
+
+//------------
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +39,13 @@ const userRouter = require("./routes/user.js")
 
 
 app.use(express.static(path.join(__dirname,"/public")))
+
+//razore pay
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 // const dbUrl = process.env.ATLASDB_URL
 const MONGO_URL = process.env.Mongodb_url
 main()
@@ -104,18 +119,38 @@ app.use("/",userRouter);
 
 //book
 
-app.get("/listings/:id/book" ,isLoggedIn,(req,res)=>{
-     const id = req.params.id;
-    res.render("booking/bookingForm.ejs", {id});
+app.get("/listings/:id/book" ,isLoggedIn,async(req,res)=>{
+  try{
+    const listingId = req.params.id;
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      return res.status(404).send('Listing not found');
+  }
+  res.render("booking/bookingForm.ejs", { 
+    listingId,
+      amount: listing.price,
+      razorpayKeyId: process.env.RAZORPAY_KEY_ID
+  });
+} catch (error) {
+  console.error(error);
+  res.status(500).send('Server Error');
+}
 })
 
-app.post("/listings/:id/book", (req,res)=>{
-  const id = req.params.id;
-    const {name,startDate,endDate,paymentMethod} =req.body;
-    // let newBooking = new Booking ({name,startDate,endDate,paymentMethod});
-    if(paymentMethod == "razorpay")
+app.post("/listings/:id/book", async (req,res)=>{
+     const listingId = req.params.id;
+     const newBooking = new Booking(Object.assign({ listingInfo: listingId }, req.body.booking));
+     const userId = req.user._id;
+     await newBooking.save();
+     console.log(newBooking);
+     
+     const user = await User.findById(userId);
+     user.booking.push(newBooking._id);
+     await user.save();  
+
+    if(newBooking.paymentMethod == "razorpay")
     {
-        res.redirect(`/listings/${id}"/book/razorpay`);
+        res.redirect(`/listings/${listingId}"/book/razorpay`);
     }
 })
 

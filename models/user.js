@@ -8,6 +8,10 @@ const userSchema = new Schema({
     email:{
         type:String,
         required:true
+    },
+    booking:{
+        type:Schema.Types.ObjectId,
+        ref: "Book",
     }
 })
 

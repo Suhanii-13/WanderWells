@@ -2,11 +2,10 @@
 <br><br><br><br><br><br>
 <div class="row"> 
     <div class="col-8 offset-2">
-        <form action="/booking/submit" method="POST">
-
+        <form action="/listings/<%= id %>/book" method="POST">
             <div class="mb-3">
-                <label for="leader" class="form-label">Name:</label>
-                <input type="text" id="leader" name="leader" class="form-control" required placeholder="Enter leader's name">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required placeholder="Enter leader's name">
             </div>
 
             <div class="mb-3">

@@ -16,6 +16,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const ExpressError = require("./utils/ExpressError.js");
 const  {isLoggedIn} = require("./middleware.js");
+const Booking = require("./models/book.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -104,10 +105,23 @@ app.use("/",userRouter);
 //book
 
 app.get("/listings/:id/book" ,isLoggedIn,(req,res)=>{
-    res.render("booking/bookingForm.ejs");
+     const id = req.params.id;
+    res.render("booking/bookingForm.ejs", {id});
 })
 
+app.post("/listings/:id/book", (req,res)=>{
+  const id = req.params.id;
+    const {name,startDate,endDate,paymentMethod} =req.body;
+    // let newBooking = new Booking ({name,startDate,endDate,paymentMethod});
+    if(paymentMethod == "razorpay")
+    {
+        res.redirect(`/listings/${id}"/book/razorpay`);
+    }
+})
 
+app.get("/listings/:id/book/razorpay", (req,res)=>{
+  res.send("welcome to razorpay");
+})
 
 //error handler middleware
 app.all("*",(req,res,next)=>{

@@ -137,26 +137,70 @@ app.get("/listings/:id/book" ,isLoggedIn,async(req,res)=>{
 }
 })
 
-app.post("/listings/:id/book", async (req,res)=>{
-     const listingId = req.params.id;
-     const newBooking = new Booking(Object.assign({ listingInfo: listingId }, req.body.booking));
-     const userId = req.user._id;
-     await newBooking.save();
-     console.log(newBooking);
-     
-     const user = await User.findById(userId);
-     user.booking.push(newBooking._id);
-     await user.save();  
+app.post("/listings/:id/book", async (req, res) => {
+  const listingId = req.params.id;
+  const bookingData = Object.assign({ listingInfo: listingId }, req.body.booking);
+  
+  if (bookingData.paymentMethod === "razorpay") {
+    const amount = bookingData.amount * 100; // Convert to paise for Razorpay
+    const options = {
+      amount,
+      currency: 'INR',
+      receipt: `receipt_order_${Date.now()}`
+    };
 
-    if(newBooking.paymentMethod == "razorpay")
-    {
-        res.redirect(`/listings/${listingId}"/book/razorpay`);
+    try {
+      const order = await razorpay.orders.create(options);
+      
+      // Pass the booking data to the next step (payment)
+      res.render('booking/razorpayCheckout', { 
+        orderId: order.id,
+        amount: bookingData.amount,
+        bookingData, // Pass all booking data to the Razorpay form
+        razorpayKeyId: process.env.RAZORPAY_KEY_ID
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error creating Razorpay order');
     }
-})
+  }
+});
 
-app.get("/listings/:id/book/razorpay", (req,res)=>{
-  res.send("welcome to razorpay");
-})
+app.post("/booking/razorpay/success", async (req, res) => {
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+
+  // Verify the payment
+  const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
+  hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+  const generated_signature = hmac.digest('hex');
+
+  if (generated_signature === razorpay_signature) {
+    try {
+      // Retrieve the booking data (passed from the form)
+      const bookingData = req.body.bookingData;
+
+      // Create and save the new booking
+      const newBooking = new Booking(bookingData);
+      await newBooking.save();
+
+      // Update the user's booking
+      const user = await User.findById(req.user._id);
+      user.booking.push(newBooking._id);
+      await user.save();
+
+      req.flash("success", "Booking successful");
+      res.redirect('/listings'); // Redirect to a success page
+    } catch (error) {
+      console.error(error);
+      req.flash("error", "Booking failed");
+      res.redirect('/listings/login'); // Redirect to an error page
+    }
+  } else {
+    req.flash("error", "Signature mismatch");
+    res.redirect('/listings/signup'); // Redirect to an error page
+  }
+});
+
 
 //error handler middleware
 app.all("*",(req,res,next)=>{

@@ -5,14 +5,11 @@ Welcome to the **Rental Platform** project! This application allows users to ren
 ## 🌟 Features
 
 - **Property Listings:** Users can list their properties with details like price, images, and descriptions.
-- **Search Filters:** Easily find properties based on various filters like location, price range, and availability.
 - **Review & Rating System:** Users can leave reviews and ratings for properties they have stayed in.
-- **Interactive Map:** Visualize property locations on a map for easy navigation.
 - **Multi-Language Support:** The platform supports multiple languages for a better user experience.
 - **Dark Mode:** Toggle between light and dark themes.
 - **Booking System:** Securely book properties with integrated payment options.
 - **Payment Integration:** Razorpay integration for seamless payment processing.
-- **Owner's Inbox:** Property owners receive booking notifications directly in their inbox.
 
 ## 🚀 Getting Started
 

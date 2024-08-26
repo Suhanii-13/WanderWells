@@ -13,9 +13,6 @@ const bookingSchema = new Schema ({
     email:{
         type:String,
     },
-    contact:{
-        type:Number,
-    },
     count:{
         type:Number
     },

@@ -14,12 +14,12 @@
 <script>
     var options = {
         "key": "<%= razorpayKeyId %>",
-        "amount": "<%= amount %>00", // Amount in paise
+        "amount": "<%= amount %>00", 
         "currency": "INR",
         "name": "wanderWell",
         "description": "Test Transaction",
-        "order_id": "<%= orderId %>", // Razorpay Order ID
-        "callback_url": "/booking/razorpay/success",
+        "order_id": "<%= orderId %>",
+        "callback_url": "/book/razorpay/success",
         "prefill": {
             "name": "<%= bookingData.name %>",
             "email": "<%= bookingData.email %>",

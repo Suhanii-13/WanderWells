@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-app.use("/", bookingRouter); // Use booking routes
+app.use("/", bookingRouter);
 
 // Error handling middleware
 app.all("*", (req, res, next) => {
@@ -95,7 +95,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(8080, () => {
-  console.log("Server is listening on port 8080");
+app.listen(3000, () => {
+  console.log("Server is listening on port 3000");
 });
 

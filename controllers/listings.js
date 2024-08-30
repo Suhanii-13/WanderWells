@@ -1,5 +1,6 @@
 const Listing = require("../models/listing.js");
 const Booking = require("../models/book.js");
+const { options } = require("joi");
 
 //index route 
 module.exports.index = async (req, res) => {
@@ -85,8 +86,6 @@ module.exports.updateListing = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
-
-
 //destroy route
  module.exports.destroyListing = async(req,res)=>{
     let {id}=req.params;
@@ -95,3 +94,19 @@ module.exports.updateListing = async (req, res) => {
     req.flash("success","Listing Deleted");
     res.redirect("/listings");
   }
+
+  //search city
+  module.exports.searchListings = async (req, res) => {
+    const city = req.query.city;
+    try {
+       let alllisting = await Listing.find({ location: city });
+      if (alllisting.length === 0) {
+        req.flash("error", "No listings found with this location");
+      }
+      res.render('listings/index', { alllisting, searchCity: '' });
+    } catch (error) {
+      console.error(error);
+      req.flash("error", "An error occurred while searching");
+      res.redirect('/listings');
+    }
+  };

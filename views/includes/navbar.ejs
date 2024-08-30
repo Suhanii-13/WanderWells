@@ -20,11 +20,14 @@
         </div>
         
         <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 search-input" type="search" placeholder="Search destinations" aria-label="Search">
-            <button class="bn search-btn" type="submit"><i class="fa fa-solid fa-magnifying-glass"></i>Search</button>
+          <form class="d-flex" role="search" action="/listings/search" method="get">
+            <input class="form-control me-2 search-input" type="search" placeholder="Search destinations"  aria-label="Search" name="city">
+            <button class="bn search-btn" type="submit">
+              <i class="fa fa-solid fa-magnifying-glass"></i>Search
+            </button>
           </form>
         </div>
+        
         <div class="navbar-nav ms-auto">
           <div id="google_translate_element"></div>
           <% if (!currentUser){%>
@@ -44,3 +47,8 @@
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+<script>
+  document.querySelector('form').addEventListener('submit', function() {
+    document.querySelector('input[name="city"]').value = '';
+});
+</script>

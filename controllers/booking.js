@@ -30,7 +30,6 @@ module.exports.getBookingForm = async (req, res) => {
 module.exports.processBooking = async (req, res) => {
   const listingId = req.params.id;
   const bookingData = Object.assign({ listingInfo: listingId }, req.body.booking);
-
   if (bookingData.paymentMethod === "razorpay") {
     const amount = bookingData.amount * 100; 
     const options = {
@@ -43,6 +42,7 @@ module.exports.processBooking = async (req, res) => {
       const order = await razorpay.orders.create(options);
       res.render('booking/razorpayCheckout', {
         listingId,
+        bookingData,
         orderId: order.id,
         amount: bookingData.amount,
         bookingData,
@@ -56,31 +56,36 @@ module.exports.processBooking = async (req, res) => {
 };
 
 module.exports.razorpaySuccess = async (req, res) => {
-  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
-
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature, listingId, numberOfPeople, startDate, endDate, name, email } = req.body;
   const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
   hmac.update(`${razorpay_order_id}|${razorpay_payment_id}`);
   const generated_signature = hmac.digest('hex');
 
   if (generated_signature === razorpay_signature) {
     try {
-      const bookingData = req.body.bookingData;
-      const newBooking = new Booking(bookingData);
-      await newBooking.save();
-
+      const newBooking = new Booking({
+        listingInfo: listingId,
+        user: req.user._id,
+        numberOfPeople,
+        startDate,
+        endDate,
+        name,
+        email,
+        paymentId: razorpay_payment_id, 
+      });
+      await newBooking.save(); 
       const user = await User.findById(req.user._id);
       user.booking.push(newBooking._id);
       await user.save();
-
       req.flash("success", "Booking successful");
       res.redirect('/listings');
     } catch (error) {
       console.error(error);
       req.flash("error", "Booking failed");
-      res.redirect('/listings/login');
+      res.redirect('/listings');
     }
   } else {
     req.flash("error", "Signature mismatch");
-    res.redirect('/listings/signup');
+    res.redirect('/listings');
   }
 };

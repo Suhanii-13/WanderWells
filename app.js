@@ -1,5 +1,3 @@
-
-
 if (process.env.NODE_ENV != "production") {
   require('dotenv').config();
 }
@@ -16,14 +14,12 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const ExpressError = require("./utils/ExpressError.js");
-const { isLoggedIn } = require("./middleware.js");
-const Razorpay = require('razorpay');
-const crypto = require('crypto');
+
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-const bookingRouter = require("./routes/booking.js"); // Import booking routes
+const bookingRouter = require("./routes/booking.js"); 
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -32,12 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
-
-// Razorpay setup
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
 
 // MongoDB connection
 const MONGO_URL = process.env.Mongodb_url;
@@ -95,7 +85,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.log("Server is listening on port 3000");
 });
 

@@ -1,10 +1,22 @@
-<% layout('/layouts/boilerplate') -%>
-<br><br><br><br>
 <div class="row"> 
     <div class="col-8 offset-2">
-        <h2>Complete Your Payment</h2>
-        <p>Total Amount: ₹<%= amount %></p>
-        <form>
+        <form action="/book/razorpay/success" method="post">
+            <h2>Complete Your Payment</h2>
+            <p>Total Amount: ₹<%= amount %></p>
+
+            <!-- Booking Data as Hidden Fields -->
+            <input type="hidden" name="listingId" value="<%= listingId %>">
+            <input type="hidden" name="numberOfPeople" value="<%= bookingData.numberOfPeople %>">
+            <input type="hidden" name="startDate" value="<%= bookingData.startDate %>">
+            <input type="hidden" name="endDate" value="<%= bookingData.endDate %>">
+            <input type="hidden" name="name" value="<%= bookingData.name %>">
+            <input type="hidden" name="email" value="<%= bookingData.email %>">
+
+            <!-- Razorpay-specific fields -->
+            <input type="hidden" id="razorpay_payment_id" name="razorpay_payment_id">
+            <input type="hidden" id="razorpay_order_id" name="razorpay_order_id">
+            <input type="hidden" id="razorpay_signature" name="razorpay_signature">
+            
             <button type="button" class="btn btn-primary" id="rzp-button1">Proceed to Payment</button>
         </form>
     </div>
@@ -19,7 +31,12 @@
         "name": "wanderWell",
         "description": "Test Transaction",
         "order_id": "<%= orderId %>",
-        "callback_url": "/book/razorpay/success",
+        "handler": function(response) {
+            document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+            document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+            document.getElementById('razorpay_signature').value = response.razorpay_signature;
+            document.forms[0].submit();
+        },
         "prefill": {
             "name": "<%= bookingData.name %>",
             "email": "<%= bookingData.email %>",

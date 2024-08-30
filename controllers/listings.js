@@ -1,8 +1,10 @@
-const Listing = require("../models/listing.js")
+const Listing = require("../models/listing.js");
+const Booking = require("../models/book.js");
 
 //index route 
 module.exports.index = async (req, res) => {
     let alllisting = await Listing.find({})//schema
+    // let booking = await Booking.find({});
     res.render("listings/index.ejs",{alllisting});
  };
 
@@ -19,10 +21,6 @@ module.exports.createListing = async (req, res, next) => {
   const newListing = new Listing(req.body.listing);   
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
-  newListing.geometry = {
-      type: 'Point',
-      coordinates: [req.body.listing.longitude, req.body.listing.latitude]
-  };
   console.log(newListing);
   await newListing.save();
   

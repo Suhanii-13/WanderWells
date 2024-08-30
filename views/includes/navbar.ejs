@@ -49,6 +49,8 @@
 </html>
 <script>
   document.querySelector('form').addEventListener('submit', function() {
-    document.querySelector('input[name="city"]').value = '';
-});
+    setTimeout(function() {
+      document.querySelector('input[name="city"]').value = '';
+    }, 50);
+  });
 </script>

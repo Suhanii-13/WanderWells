@@ -98,6 +98,7 @@ module.exports.updateListing = async (req, res) => {
   //search city
   module.exports.searchListings = async (req, res) => {
     const city = req.query.city;
+    console.log(req.query)
     try {
        let alllisting = await Listing.find({ location: city });
       if (alllisting.length === 0) {
@@ -110,3 +111,19 @@ module.exports.updateListing = async (req, res) => {
       res.redirect('/listings');
     }
   };
+
+  //filter
+module.exports.filterByCategory = async (req, res) => {
+  const { category } = req.query; 
+  let query = {};
+  if (category && category !== 'All') {
+    query.category = category;
+  }
+  try {
+    const alllisting = await Listing.find(query);
+    res.render('listings/index', { alllisting, category }); 
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
+  }
+}

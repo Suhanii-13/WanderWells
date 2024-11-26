@@ -1,0 +1,56 @@
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <body>
+    <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+      <div class="container-fluid">
+      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-3">
+          <a class="nav-link" href="/listings/new">Rent your home</a>
+          <div class="navbar-nav themeToggle">
+            <input type="checkbox" id="theme-toggle">
+            <label id="theme" for="theme-toggle">
+               <i class="fa-regular fa-sun"></i>
+               <i class="fa-regular fa-moon"></i>
+          </label>
+          </div>
+        </div>
+        
+        <div class="navbar-nav ms-auto">
+          <form class="d-flex" role="search" action="/listings/search" method="get">
+            <input class="form-control me-2 search-input" type="search" placeholder="Search destinations"  aria-label="Search" name="city">
+            <button class="bn search-btn" type="submit">
+              <i class="fa fa-solid fa-magnifying-glass"></i>Search
+            </button>
+          </form>
+        </div>
+        
+        <div class="navbar-nav ms-auto">
+          <div id="google_translate_element"></div>
+          <% if (!currentUser){%>
+            <a class="nav-link" href="/signup"><b>SignUp</b></a>
+            <a class="nav-link" href="/login"><b>Login</b></a>
+            <%}%>
+          <% if (currentUser){%>
+            <a class="nav-link" href="/logout"><b>Logout</b></a>
+          <%}%>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <script src="/js/navFilter.js"></script>
+  <script src="/js/theme.js"></script>
+  <script type="text/javascript" src="/js/lang.js"> </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
+<script>
+  document.querySelector('form').addEventListener('submit', function() {
+    setTimeout(function() {
+      document.querySelector('input[name="city"]').value = '';
+    }, 50);
+  });
+</script>

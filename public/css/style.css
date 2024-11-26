@@ -1,0 +1,170 @@
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+/* navbar */
+
+.navbar {
+  background-color: white !important;
+}
+
+.fa-compass {
+  color: #3f7dc4;
+  font-size: 2rem;
+}
+
+.nav-link {
+  color: #727171 !important;
+}
+
+.nav-link:hover {
+  color: black !important;
+}
+
+/* footer */
+
+.f-info-link a {
+  text-decoration: none;
+  color: #222222;
+  margin-right: 1.2rem;
+}
+
+.f-info-link,
+.f-info-socials,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-info-socials i {
+  margin-right: 2rem;
+  font-size: 1.2rem;
+  display: flex;
+}
+
+.f-info-link a:hover {
+  text-decoration: underline;
+}
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-evenly;
+}
+
+/* cards */
+
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem !important ;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 1 !important;
+}
+.marginTop {
+  margin-top: 6rem !important;
+}
+
+.card-text p {
+  font-weight: 400;
+}
+
+.card-text p .plus-jakarta-sans {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-style: normal !important;
+}
+
+.listing-link {
+  text-decoration: none !important;
+}
+
+/* card effect */
+
+.card-img-overlay {
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
+}
+
+/* new-page */
+
+.add-btn {
+  background-color: #3f7dc4 !important ;
+  border: none !important;
+}
+
+.book-btn {
+  background-color: #3f7dc4 !important ;
+  border: none !important;
+  width: 8rem !important;
+  color: white !important;
+}
+.search-btn {
+  background-color: #3f7dc4 !important;
+}
+/* show-page */
+
+.show-img {
+  height: 50vh;
+}
+
+.btns {
+  display: flex;
+}
+
+/*Map*/
+#map {
+  height: 400px;
+}
+
+/*msg box*/
+.fixed-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3f7dc4;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  z-index: 1000;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  width: 3.8rem !important;
+}
+
+.fixed-icon:hover {
+  background-color: #2c588b;
+}
+
+@media screen and (min-width: 2000px) {
+  .fixed-icon {
+    right: 80px;
+  }
+}

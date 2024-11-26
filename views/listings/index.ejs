@@ -1,0 +1,52 @@
+<% layout('/layouts/boilerplate') -%>
+<%- include('../includes/filters') %>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 marginTop">
+    <% if (alllisting.length > 0 ) { %>
+        <% for (let listing of alllisting) { %>
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card col listing-card">
+                    <img 
+                        src="<%= listing.image.url %>"
+                        class="card-img-top"
+                        alt="Listing image"
+                        style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <p><b><%= listing.title %></b></p>
+                            &#8377;<%= listing.price.toLocaleString("en-IN") %>/night
+                            <i class="tax-info" style="color: green;"> &nbsp; +18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <% if (currentUser && listing.owner._id.equals(currentUser._id)) { %>
+                <div class="fixed-icon" data-bs-toggle="modal" data-bs-target="#bookingModal-<%= listing._id %>">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div class="modal fade" id="bookingModal-<%= listing._id %>" tabindex="-1" aria-labelledby="bookingModalLabel-<%= listing._id %>" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="bookingModalLabel-<%= listing._id %>">Booking Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Owner Name: John Doe</p>
+                        <p>Booked Dates: 25th - 30th August</p>
+                        <p>Number of People: 4</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% } %>
+        <% } %>
+    <% } else { %>
+        <div class="no-listings">
+            <p>No listings found in this location</p>
+        </div>
+    <% } %>
+</div>

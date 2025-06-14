@@ -8,8 +8,6 @@ Welcome to the **Rental Platform** project! This application allows users to ren
 - **Review & Rating System:** Users can leave reviews and ratings for properties they have stayed in.
 - **Multi-Language Support:** The platform supports multiple languages for a better user experience.
 - **Dark Mode:** Toggle between light and dark themes.
-- **Booking System:** Securely book properties with integrated payment options.
-- **Payment Integration:** Razorpay integration for seamless payment processing.
 
 ## 🚀 Getting Started
 
@@ -19,7 +17,7 @@ Ensure you have the following installed:
 
 - **Node.js** (v14 or later)
 - **MongoDB** (for database)
-- **Razorpay Account** (for payment integration)
+
 
 
 ## 🧩 Project Structure
@@ -32,8 +30,7 @@ rental-platform/
 │   ├── images/                 
 │   └── js/                     
 │
-├── routes/                     
-│   ├── booking.js              
+├── routes/                               
 │   ├── listing.js              
 │   ├── reviews.js              
 │   └── user.js                 
@@ -42,18 +39,15 @@ rental-platform/
 │   ├── layouts/                
 │   ├── includes/               
 │   ├── listings/               
-│   ├── inbox/                  
-│   ├── booking/              
+│   ├── inbox/                            
 │   └── user/                  
 │
-├── models/                     
-│   ├── booking.js              
+├── models/                                
 │   ├── listing.js              
 │   ├── reviews.js              
 │   └── user.js                 
 │
-├── controllers/                
-│   ├── booking.js              
+├── controllers/                          
 │   ├── review.js               
 │   ├── listing.js              
 │   └── users.js                
@@ -76,4 +70,3 @@ rental-platform/
 - **MongoDB & Mongoose:** Database management and ORM.
 - **EJS:** Templating engine for dynamic HTML rendering.
 - **Bootstrap:** Frontend framework for responsive design.
-- **Razorpay:** Payment integration.

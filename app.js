@@ -27,6 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+// Serve uploaded images
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 // MongoDB connection
 const MONGO_URL = process.env.Mongodb_url;
@@ -39,11 +41,24 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-// Session configuration
+// Session configuration with MongoStore
+const store = MongoStore.create({
+  mongoUrl: MONGO_URL,
+  crypto: {
+    secret: process.env.SECRET || "wanderwells_default_secret",
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+  console.log("Session store error:", err);
+});
+
 const sessionOption = {
-  secret: process.env.SECRET,
+  store,
+  secret: process.env.SECRET || "wanderwells_default_secret",
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -68,6 +83,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root redirect
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // Route handling
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -83,7 +103,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(8080, () => {
-  console.log("Server is listening on port 3000");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
-

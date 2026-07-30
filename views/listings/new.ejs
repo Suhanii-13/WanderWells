@@ -1,15 +1,14 @@
 <% layout('/layouts/boilerplate') -%>
 
-    <br><br>
-    <div class="row mt-2">
-        <div class="col-8 offset-2">
-<h3>Create a New Listings</h3>
+<br><br>
+<div class="row mt-2">
+    <div class="col-8 offset-2">
+        <h3>Create a New Listing</h3>
     <form method="POST" action="/listings" 
     class="needs-validation" id="listingForm" novalidate enctype="multipart/form-data">            
         <div class="mb-3">
             <label for="title" class="form-label">Title</label> 
             <input name="listing[title]" placeholder="Enter title" type="text" class="form-control" required>
-
             <div class="valid-feedback">
              Title looks good
             </div>
@@ -19,27 +18,25 @@
         </div> 
 
         <div class="mb-3">
-            <label for="description" class="form-label"> Description</label> 
+            <label for="description" class="form-label">Description</label> 
             <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
             <div class="invalid-feedback">
                 Please write description 
                </div>
         </div>
 
-
         <div class="mb-3">
-            <label for="image" class="form-label">Uploade listing image</label> 
-            <input name="listing[image]",
-            type = "file",
-           class="form-control" required>
+            <label for="image" class="form-label">Upload Listing Image</label> 
+            <input name="image" type="file" class="form-control" accept="image/*">
+            <small class="text-muted">Optional - a default image will be used if not provided</small>
         </div>
     
     <div class="row">
         <div class="mb-3 col-md-4">
-            <label for="price" class="form-label">Price</label> 
+            <label for="price" class="form-label">Price (per night ₹)</label> 
             <input name="listing[price]" placeholder="Enter price" type="number" class="form-control" required>
             <div class="invalid-feedback">
-                Please write  valid price 
+                Please write valid price 
                </div>
         </div>
 
@@ -47,23 +44,44 @@
             <label for="country" class="form-label">Country</label> 
             <input name="listing[country]" placeholder="Enter country" type="text" class="form-control" required>
             <div class="invalid-feedback">
-                Please write  the country 
+                Please write the country 
                </div>
         </div>
     </div>  
         <div class="mb-3">
-            <label for="location" class="form-label">Location</label> 
-            <input   id="locationInput" name="listing[location]" placeholder="Enter location" type="text" class="form-control"required>
+            <label for="location" class="form-label">Location / City</label> 
+            <input id="locationInput" name="listing[location]" placeholder="Enter location" type="text" class="form-control" required>
             <div class="invalid-feedback">
                 Please write the location 
                </div>
         </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="listing[category]" class="form-select">
+                <option value="">Select category</option>
+                <option value="Islands">Islands</option>
+                <option value="Castles">Castles</option>
+                <option value="Mountains">Mountains</option>
+                <option value="Villa">Villa</option>
+                <option value="Camping">Camping</option>
+                <option value="Pools">Pools</option>
+                <option value="Boat">Boat</option>
+                <option value="Cabins">Cabins</option>
+                <option value="Farms">Farms</option>
+                <option value="Beach">Beach</option>
+                <option value="Arctic">Arctic</option>
+            </select>
+        </div>
     
-        <button type="submit" class="btn btn-dark add-btn mt-3">Add</button>
+        <button type="submit" class="btn btn-dark add-btn mt-3">Add Listing</button>
         <br><br>
     </form>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="/js/mapNew.js"></script>
-</div>
-</div>
 
+    <div class="mb-4">
+        <h5>Pin Location on Map <small class="text-muted">(optional)</small></h5>
+        <div id="map" style="height: 300px; border-radius: 1rem;"></div>
+    </div>
+    <script src="/js/mapNew.js"></script>
+</div>
+</div>

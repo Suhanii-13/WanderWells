@@ -22,12 +22,12 @@
             </div>
 
             <div class="mb-3"> 
-                <p>Original listing img</p>         
-                <img src="<%= originalImgUrl %>">
+                <p>Current listing image</p>         
+                <img src="<%= originalImgUrl %>" style="height: 200px; border-radius: 0.5rem; object-fit: cover;">
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Upload New image</label>
-                <input name="listing[image]" type="file" class="form-control">
+                <label for="image" class="form-label">Upload New Image (optional)</label>
+                <input name="image" type="file" class="form-control" accept="image/*">
             </div>
 
             <div class="row">
@@ -56,18 +56,17 @@
                 </div>
             </div>
 
-            <input type="hidden" name="listing[latitude]" value="<%= listing.geometry.coordinates[1] %>">
-            <input type="hidden" name="listing[longitude]" value="<%= listing.geometry.coordinates[0] %>">
+            <input type="hidden" name="listing[latitude]" value="<%= (listing.geometry && listing.geometry.coordinates) ? listing.geometry.coordinates[1] : 0 %>">
+            <input type="hidden" name="listing[longitude]" value="<%= (listing.geometry && listing.geometry.coordinates) ? listing.geometry.coordinates[0] : 0 %>">
 
-            <button class="btn btn-dark add-btn mt-3">Edit</button>
+            <button class="btn btn-dark add-btn mt-3">Update Listing</button>
             <br><br>
         </form>
     </div>
 </div>
 
 <div class="col-8 offset-2 mb-3">
-    <h3>Current Location</h3>
-    <div id="map" style="height: 400px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <h5>Current Location on Map</h5>
+    <div id="map" style="height: 300px; border-radius: 1rem;"></div>
     <script src="/js/mapEdit.js"></script>
 </div>

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Review =require ("./review.js")
+const Review = require("./review.js");
 
 const listingSchema = new Schema({
   title: {
@@ -9,23 +9,40 @@ const listingSchema = new Schema({
   },
   description: String,
   image: {
-    url: String,
-    filename:String,
+    url: {
+      type: String,
+      default: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&auto=format&fit=crop",
+    },
+    filename: {
+      type: String,
+      default: "default",
+    },
   },
   price: Number,
-  location:String,
-  country:String,
+  location: String,
+  country: String,
   reviews: [
     {
       type: Schema.Types.ObjectId,
       ref: "Review",
     },
   ],
-  owner:{
-    type:Schema.Types.ObjectId,
+  owner: {
+    type: Schema.Types.ObjectId,
     ref: "User",
   },
-  category:String,
+  category: String,
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0],
+    },
+  },
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

@@ -1,76 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const wrapper = document.querySelector(".wrapper");
   const carousel = document.querySelector(".carousel");
-  let fistCardWidth = carousel.querySelector(".filterCard").offsetWidth;
-  const carousalChilderns = [...carousel.children];
-  let isDragging = false, startX, startScrollLeft, timeoutId;
+  if (!carousel) return;
 
-  let cardPreview = Math.round(carousel.offsetWidth / fistCardWidth);
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
-  carousalChilderns.slice(-cardPreview).reverse().forEach(card => {
-    carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+  carousel.addEventListener('mousedown', (e) => {
+    isDown = true;
+    carousel.classList.add('dragging');
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
   });
 
-  carousalChilderns.slice(0, cardPreview).reverse().forEach(card => {
-    carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+  carousel.addEventListener('mouseleave', () => {
+    isDown = false;
+    carousel.classList.remove('dragging');
   });
 
+  carousel.addEventListener('mouseup', () => {
+    isDown = false;
+    carousel.classList.remove('dragging');
+  });
 
-  const dragStart = (e) => {
-    isDragging = true;
-    carousel.classList.add("dragging");
-    startX = e.pageX;
-    startScrollLeft = carousel.scrollLeft;
-  };
+  carousel.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 2; // scroll-fast multiplier
+    carousel.scrollLeft = scrollLeft - walk;
+  });
 
-  const dragStop = () => {
-    isDragging = false;
-    carousel.classList.remove("dragging");
-  };
+  // Touch support for mobile dragging
+  carousel.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  }, { passive: true });
 
-  const dragging = (e) => {
-    if (!isDragging) return;
-    carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
-  };
+  carousel.addEventListener('touchend', () => {
+    isDown = false;
+  }, { passive: true });
 
-  const scrollInfinite = () => {
-    if (carousel.scrollLeft === 0) {
-      carousel.classList.add("no-transition");
-      carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
-      carousel.classList.remove("no-transition");
-    } else if (Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
-      carousel.classList.add("no-transition");
-      carousel.scrollLeft = carousel.offsetWidth;
-      carousel.classList.remove("no-transition");
-    }
+  carousel.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    carousel.scrollLeft = scrollLeft - walk;
+  }, { passive: true });
 
-    clearTimeout(timeoutId);
-    if (!wrapper.matches(":hover")) autoplay();
-  };
-
-  const autoplay = () => {
-    if (window.innerWidth < 100) return; 
-    timeoutId = setTimeout(() => carousel.scrollLeft += fistCardWidth, 2500);
-  };
-
-  autoplay();
-
-  carousel.addEventListener("mousedown", dragStart);
-  carousel.addEventListener("mousemove", dragging);
-  document.addEventListener("mouseup", dragStop);
-  wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
-  wrapper.addEventListener("mouseleave", autoplay);
-  carousel.addEventListener("scroll", scrollInfinite);
-});
-
-let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-    taxSwitch.addEventListener("click" , ()=>{
+  // Tax Switch functionality
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  if (taxSwitch) {
+    taxSwitch.addEventListener("change", () => {
       let taxinfo = document.getElementsByClassName("tax-info");
-      for( info of taxinfo)
-      { if(info.style.display !="inline"){
+      for (let info of taxinfo) {
+        if (taxSwitch.checked) {
           info.style.display = "inline";
-      }else{
-        info.style.display = "none";
+        } else {
+          info.style.display = "none";
+        }
       }
-      }
-    })
+    });
+  }
+});
